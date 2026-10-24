@@ -40,7 +40,6 @@
     </script>
 
     <style>
-        /* Custom Styles & Wax Seal CSS */
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #F9F6F0;
@@ -56,23 +55,11 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Envelope Landing Screen Overlay */
         #envelope-overlay {
             transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
             z-index: 100;
         }
 
-        .envelope-flap {
-            clip-path: polygon(0 0, 50% 50%, 100% 0);
-            transition: transform 0.8s ease-in-out;
-            transform-origin: top;
-        }
-
-        .envelope-open .envelope-flap {
-            transform: rotateX(180deg);
-        }
-
-        /* Wax Seal Styling */
         .wax-seal {
             background: radial-gradient(circle at 30% 30%, #e63946, #800020);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.3);
@@ -84,7 +71,6 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.4);
         }
 
-        /* Canvas background overlay */
         #petal-canvas {
             position: fixed;
             top: 0;
@@ -95,19 +81,38 @@
             z-index: 10;
         }
 
-        /* Glassmorphism Card Style */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.25);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        .gold-border {
-            border: 2px solid #D4AF37;
+        .journey-card {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-height: 180px;
         }
 
-        /* Hide Scrollbar for sleek view */
+        .journey-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(249, 246, 240, 0.85);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .journey-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -125,7 +130,6 @@
     <!-- ENVELOPE / WAX SEAL COVER OVERLAY -->
     <div id="envelope-overlay" class="fixed inset-0 bg-deepOlive/90 backdrop-blur-md flex items-center justify-center p-4">
         <div id="envelope-box" class="relative w-full max-w-lg bg-champagne rounded-2xl shadow-2xl p-8 border-2 border-gold/40 text-center flex flex-col items-center justify-between min-h-[420px]">
-            <!-- Decorative Border Frame -->
             <div class="absolute inset-3 border border-gold/30 rounded-xl pointer-events-none"></div>
 
             <div class="mt-4">
@@ -140,11 +144,10 @@
                         <span class="text-[10px] font-bold tracking-widest uppercase">TAP TO<br>OPEN</span>
                     </div>
                 </button>
-                <p class="text-xs text-stone-500 mt-4 tracking-wider uppercase font-light">Turn sound on for ambient music</p>
             </div>
 
             <div class="mb-2 text-stone-600 text-xs tracking-widest uppercase">
-                <i class="fas fa-calendar-alt text-gold-dark mr-1"></i> November 22, 2026
+                <i class="fas fa-calendar-alt text-gold-dark mr-1"></i> January 11, 2027
             </div>
         </div>
     </div>
@@ -155,22 +158,16 @@
         <!-- Navigation Bar -->
         <header class="sticky top-0 z-40 bg-champagne/90 backdrop-blur-md border-b border-gold/20 px-6 py-4 transition-all">
             <div class="max-w-5xl mx-auto flex justify-between items-center">
-                <a href="#" class="font-script-calligraphy text-2xl md:text-3xl text-deepOlive font-bold">J & S</a>
+                <a href="#" class="font-script-calligraphy text-2xl md:text-3xl text-deepOlive font-bold">J & A</a>
                 
                 <nav class="hidden md:flex space-x-6 text-xs uppercase tracking-widest font-medium text-stone-700">
                     <a href="#hero" class="hover:text-gold-dark transition">Home</a>
                     <a href="#countdown" class="hover:text-gold-dark transition">Countdown</a>
                     <a href="#events" class="hover:text-gold-dark transition">Events</a>
-                    <a href="#story" class="hover:text-gold-dark transition">Our Story</a>
-                    <a href="#gallery" class="hover:text-gold-dark transition">Gallery</a>
+                    <a href="#story" class="hover:text-gold-dark transition">Our Journey</a>
                 </nav>
 
                 <div class="flex items-center space-x-3">
-                    <!-- Audio Toggle -->
-                    <button id="audio-toggle" onclick="toggleAudio()" class="w-9 h-9 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center hover:bg-gold/20 transition" title="Toggle Ambient Music">
-                        <i id="audio-icon" class="fas fa-music"></i>
-                    </button>
-                    <!-- RSVP Header Button -->
                     <button onclick="openRsvpModal()" class="bg-deepOlive text-champagne text-xs uppercase tracking-wider px-4 py-2 rounded-full hover:bg-gold-dark transition shadow">
                         RSVP
                     </button>
@@ -190,14 +187,14 @@
                 </h1>
 
                 <p class="font-serif text-lg md:text-2xl text-stone-600 italic max-w-xl mx-auto mb-8 leading-relaxed">
-                    "Come for the love, stay for the food, dance like nobody’s watching, and maybe cry a little."
+                    "Come for the love, stay for the food, and celebrate our new beginning."
                 </p>
 
                 <!-- Key Date Display Badge -->
                 <div class="inline-flex items-center justify-center space-x-4 border-y-2 border-gold/30 py-3 px-8 mb-10 text-stone-800">
-                    <span class="text-xs sm:text-sm tracking-widest uppercase font-semibold">Sunday</span>
-                    <span class="text-xl sm:text-2xl font-serif font-bold text-gold-dark">NOV 22, 2026</span>
-                    <span class="text-xs sm:text-sm tracking-widest uppercase font-semibold">Thrissur, Kerala</span>
+                    <span class="text-xs sm:text-sm tracking-widest uppercase font-semibold">Monday</span>
+                    <span class="text-xl sm:text-2xl font-serif font-bold text-gold-dark">JAN 11, 2027</span>
+                    <span class="text-xs sm:text-sm tracking-widest uppercase font-semibold">Kallara, Kottayam, Kerala</span>
                 </div>
 
                 <!-- Action Controls -->
@@ -240,31 +237,46 @@
                     </div>
                 </div>
 
-                <!-- Interactive Mini-Calendar Section -->
+                <!-- Interactive Mini-Calendar Section for January 2027 -->
                 <div class="glass-card max-w-md mx-auto rounded-2xl p-6 shadow-md border border-gold/30">
                     <div class="flex justify-between items-center mb-4 border-b pb-3 border-stone-200">
-                        <span class="font-serif-heading font-bold text-xl text-deepOlive">November 2026</span>
-                        <span class="text-xs uppercase tracking-widest text-gold-dark font-semibold">Thrissur, Kerala</span>
+                        <span class="font-serif-heading font-bold text-xl text-deepOlive">January 2027</span>
+                        <span class="text-xs uppercase tracking-widest text-gold-dark font-semibold">Kallara & Uzhavoor</span>
                     </div>
 
                     <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-stone-500 mb-2">
                         <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
                     </div>
 
-                    <!-- November 2026 Days grid (Starts on Sunday Nov 1) -->
                     <div class="grid grid-cols-7 gap-1 text-center text-sm font-medium text-stone-700">
-                        <div class="p-2">1</div><div class="p-2">2</div><div class="p-2">3</div><div class="p-2">4</div><div class="p-2">5</div><div class="p-2">6</div><div class="p-2">7</div>
-                        <div class="p-2">8</div><div class="p-2">9</div><div class="p-2">10</div><div class="p-2">11</div><div class="p-2">12</div><div class="p-2">13</div><div class="p-2">14</div>
-                        <div class="p-2">15</div><div class="p-2">16</div><div class="p-2">17</div><div class="p-2">18</div><div class="p-2">19</div><div class="p-2">20</div><div class="p-2">21</div>
+                        <div class="p-2 text-stone-300"></div><div class="p-2 text-stone-300"></div><div class="p-2 text-stone-300"></div><div class="p-2 text-stone-300"></div><div class="p-2 text-stone-300"></div><div class="p-2">1</div><div class="p-2">2</div>
                         
-                        <!-- Event Highlight: Nov 22 -->
-                        <div onclick="scrollToEvents()" class="p-2 bg-gold text-white font-bold rounded-full cursor-pointer hover:bg-gold-dark transition shadow-md relative group" title="Wedding Ceremony Day!">
-                            22
-                            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-deepOlive text-white text-[10px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-20">Wedding Day!</span>
+                        <!-- Jan 3 Event -->
+                        <div onclick="scrollToEvents()" class="p-2 bg-amber-600 text-white font-bold rounded-full cursor-pointer hover:opacity-80 transition shadow-md relative group" title="Engagement & Mylanchi">
+                            3
+                            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-deepOlive text-white text-[10px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-20">Engagement & Mylanchi</span>
                         </div>
 
-                        <div class="p-2">23</div><div class="p-2">24</div><div class="p-2">25</div><div class="p-2">26</div><div class="p-2">27</div><div class="p-2">28</div>
-                        <div class="p-2">29</div><div class="p-2">30</div>
+                        <div class="p-2">4</div><div class="p-2">5</div><div class="p-2">6</div><div class="p-2">7</div><div class="p-2">8</div>
+
+                        <!-- Jan 9 Event -->
+                        <div onclick="scrollToEvents()" class="p-2 bg-roseAccent text-white font-bold rounded-full cursor-pointer hover:opacity-80 transition shadow-md relative group" title="Chantham Charthu Day">
+                            9
+                            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-deepOlive text-white text-[10px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-20">Chantham Charthu</span>
+                        </div>
+
+                        <div class="p-2">10</div>
+
+                        <!-- Jan 11 Event -->
+                        <div onclick="scrollToEvents()" class="p-2 bg-gold text-white font-bold rounded-full cursor-pointer hover:bg-gold-dark transition shadow-md relative group" title="Marriage Ceremony Day!">
+                            11
+                            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-deepOlive text-white text-[10px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap z-20">Marriage Day!</span>
+                        </div>
+
+                        <div class="p-2">12</div><div class="p-2">13</div><div class="p-2">14</div><div class="p-2">15</div><div class="p-2">16</div>
+                        <div class="p-2">17</div><div class="p-2">18</div><div class="p-2">19</div><div class="p-2">20</div><div class="p-2">21</div><div class="p-2">22</div><div class="p-2">23</div>
+                        <div class="p-2">24</div><div class="p-2">25</div><div class="p-2">26</div><div class="p-2">27</div><div class="p-2">28</div><div class="p-2">29</div><div class="p-2">30</div>
+                        <div class="p-2">31</div>
                     </div>
                 </div>
             </div>
@@ -278,8 +290,58 @@
                 <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Event Card 1: Wedding Ceremony -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Event Card 1 -->
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-t-4 border-t-amber-600 hover:shadow-xl transition duration-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs uppercase font-semibold text-amber-600 tracking-wider">Kickoff Celebration</span>
+                                <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive">Engagement & Mylanchi</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-amber-600/10 text-amber-600 flex items-center justify-center text-xl">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-stone-600 text-sm mb-6">
+                            <p class="flex items-center"><i class="far fa-calendar-alt w-6 text-amber-600"></i> Sunday, January 3, 2027</p>
+                            <p class="flex items-center"><i class="far fa-clock w-6 text-amber-600"></i> All Day Event</p>
+                            <p class="flex items-start"><i class="fas fa-map-marker-alt w-6 text-amber-600 mt-1"></i> <span><strong>Uzhavoor</strong><br>Uzhavoor, Kottayam, Kerala 686634</span></p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.google.com/maps?vet=10CAAQoqAOahcKEwjA8belmtOXAxUAAAAAHQAAAAAQBg..i&rlz=1C1CHBF_enIN993IN993&udm&fvr=1&pvq=CgsvZy8xdGY1enFtayIMCgZjaHVyY2gQAhgD&lqi=Cg91emhhdm9vciBjaHVyY2hI8bT90uWAgIAIWhcQARgAGAEiD3V6aGF2b29yIGNodXJjaJIBF2Vhc3Rlcm5fY2F0aG9saWNfY2h1cmNo&cs=0&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KVGbY9pD0Ac7MapVliJztqos&daddr=QJP6%2BQQ6,+Pala+Uzhavoor+Rd,+Uzhavoor,+Keralam+686634" target="_blank" rel="noopener noreferrer" class="w-full py-3 border border-amber-600/50 text-amber-600 hover:bg-amber-600 hover:text-white font-medium text-xs uppercase tracking-wider rounded-xl transition text-center flex items-center justify-center">
+                        <i class="fas fa-directions mr-2"></i> Get Directions
+                    </a>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-t-4 border-t-roseAccent hover:shadow-xl transition duration-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs uppercase font-semibold text-roseAccent tracking-wider">Pre-Wedding Ritual</span>
+                                <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive">Chantham Charthu</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-roseAccent/10 text-roseAccent flex items-center justify-center text-xl">
+                                <i class="fas fa-drum"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-stone-600 text-sm mb-6">
+                            <p class="flex items-center"><i class="far fa-calendar-alt w-6 text-roseAccent"></i> Saturday, January 9, 2027</p>
+                            <p class="flex items-center"><i class="far fa-clock w-6 text-roseAccent"></i> 7:00 PM – 10:00 PM</p>
+                            <p class="flex items-start"><i class="fas fa-map-marker-alt w-6 text-roseAccent mt-1"></i> <span><strong>Kallara Kaavu</strong><br>Kallara Kaavu Rd, Kallara, Kerala 686611</span></p>
+                        </div>
+                    </div>
+
+                    <a href="https://www.google.com/maps?rlz=1C1CHBF_enIN993IN993&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRiPAtIBCDc1MzZqMGo3qAIIsAIB&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KR04xPLq1Qc7MdFsrFTC0B0c&daddr=PF2G%2B2WG,+Kallara+Kaavu+Rd,+Kallara,+Keralam+686611" target="_blank" rel="noopener noreferrer" class="w-full py-3 border border-roseAccent/50 text-roseAccent hover:bg-roseAccent hover:text-white font-medium text-xs uppercase tracking-wider rounded-xl transition text-center flex items-center justify-center">
+                        <i class="fas fa-directions mr-2"></i> Get Directions
+                    </a>
+                </div>
+
+                <!-- Event Card 3 -->
                 <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-t-4 border-t-gold hover:shadow-xl transition duration-300">
                     <div>
                         <div class="flex justify-between items-start mb-4">
@@ -288,52 +350,25 @@
                                 <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive">Marriage Ceremony</h3>
                             </div>
                             <div class="w-12 h-12 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center text-xl">
-                                <i class="fas fa-rings-wedding"></i>
+                                <i class="fas fa-ring"></i>
                             </div>
                         </div>
 
                         <div class="space-y-3 text-stone-600 text-sm mb-6">
-                            <p class="flex items-center"><i class="far fa-calendar-alt w-6 text-gold-dark"></i> Sunday, November 22, 2026</p>
-                            <p class="flex items-center"><i class="far fa-clock w-6 text-gold-dark"></i> 10:30 AM – 12:00 PM</p>
-                            <p class="flex items-center font-semibold text-deepOlive"><i class="fas fa-sun w-6 text-gold-dark"></i> Muhurtham: 10:45 AM – 11:20 AM</p>
-                            <p class="flex items-start"><i class="fas fa-map-marker-alt w-6 text-gold-dark mt-1"></i> <span><strong>Lulu International Convention Centre</strong><br>Puzhakkal, Thrissur, Kerala 680553</span></p>
+                            <p class="flex items-center"><i class="far fa-calendar-alt w-6 text-gold-dark"></i> Monday, January 11, 2027</p>
+                            <p class="flex items-center"><i class="far fa-clock w-6 text-gold-dark"></i> 10:30 AM – 2:00 PM</p>
+                            <p class="flex items-start"><i class="fas fa-map-marker-alt w-6 text-gold-dark mt-1"></i> <span><strong>St. Thomas Church</strong><br>Kallara, Kottayam, Kerala 686611</span></p>
                         </div>
                     </div>
 
-                    <a href="https://maps.google.com/?q=Lulu+International+Convention+Centre+Thrissur" target="_blank" rel="noopener noreferrer" class="w-full py-3 border border-gold/50 text-gold-dark hover:bg-gold hover:text-white font-medium text-xs uppercase tracking-wider rounded-xl transition text-center flex items-center justify-center">
-                        <i class="fas fa-directions mr-2"></i> Get Directions
-                    </a>
-                </div>
-
-                <!-- Event Card 2: Wedding Reception -->
-                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between border-t-4 border-t-roseAccent hover:shadow-xl transition duration-300">
-                    <div>
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <span class="text-xs uppercase font-semibold text-roseAccent tracking-wider">Evening Celebration</span>
-                                <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive">Grand Reception</h3>
-                            </div>
-                            <div class="w-12 h-12 rounded-full bg-roseAccent/10 text-roseAccent flex items-center justify-center text-xl">
-                                <i class="fas fa-glass-cheers"></i>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3 text-stone-600 text-sm mb-6">
-                            <p class="flex items-center"><i class="far fa-calendar-alt w-6 text-roseAccent"></i> Sunday, November 22, 2026</p>
-                            <p class="flex items-center"><i class="far fa-clock w-6 text-roseAccent"></i> 5:30 PM Onwards</p>
-                            <p class="flex items-center text-deepOlive"><i class="fas fa-utensils w-6 text-roseAccent"></i> Dinner, Music & Feast</p>
-                            <p class="flex items-start"><i class="fas fa-map-marker-alt w-6 text-roseAccent mt-1"></i> <span><strong>The Grand Ballroom, Heritage Garden</strong><br>Round West, Thrissur, Kerala 680001</span></p>
-                        </div>
-                    </div>
-
-                    <a href="https://maps.google.com/?q=Thrissur+Kerala" target="_blank" rel="noopener noreferrer" class="w-full py-3 border border-roseAccent/50 text-roseAccent hover:bg-roseAccent hover:text-white font-medium text-xs uppercase tracking-wider rounded-xl transition text-center flex items-center justify-center">
+                    <a href="https://www.google.com/maps?vet=10CAAQoqAOahcKEwiIy-Ohl9OXAxUAAAAAHQAAAAAQBg..i&rlz=1C1CHBF_enIN993IN993&sca_esv=4cbfb8f2372fc763&udm&fvr=1&pvq=CgwvZy8xMXI5bDdfYnkiFgoQc3QgdGhvbWFzIGNodXJjaBACGAM&lqi=ChhzdCB0aG9tYXMgY2h1cmNoIGthbGxhcmEiA4gBAUjd-o-Z3YGAgAhaKBAAEAEQAhgAGAEYAhgDIhhzdCB0aG9tYXMgY2h1cmNoIGthbGxhcmGSARdlYXN0ZXJuX2NhdGhvbGljX2NodXJjaA&cs=0&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KXFpiTCV1Qc7MaPXNTg18uyi&daddr=MFWH%2BR5F,+SH42,+Kallara,+Keralam+686611" target="_blank" rel="noopener noreferrer" class="w-full py-3 border border-gold/50 text-gold-dark hover:bg-gold hover:text-white font-medium text-xs uppercase tracking-wider rounded-xl transition text-center flex items-center justify-center">
                         <i class="fas fa-directions mr-2"></i> Get Directions
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Our Story / Journey Section -->
+        <!-- Our Story / Journey Section with Custom Local Images -->
         <section id="story" class="py-20 bg-champagne border-y border-gold/20 px-4">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-16">
@@ -342,61 +377,42 @@
                     <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
                 </div>
 
-                <div class="space-y-12 relative before:absolute before:inset-0 before:left-1/2 before:-translate-x-1/2 before:w-0.5 before:bg-gold/30">
-                    <!-- Story Item 1 -->
-                    <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                        <div class="w-full md:w-5/12 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">October 2021</span>
-                            <h3 class="font-serif-heading text-2xl font-bold text-deepOlive">First Coffee & Chat</h3>
-                            <p class="text-stone-600 text-sm mt-2">What started as a brief 30-minute coffee meeting turned into a 4-hour conversation about movies, food, and big dreams.</p>
-                        </div>
-                        <div class="w-8 h-8 rounded-full bg-gold text-white flex items-center justify-center text-xs font-bold z-10 shadow-md">1</div>
-                        <div class="w-full md:w-5/12 md:pl-8"></div>
-                    </div>
-
-                    <!-- Story Item 2 -->
-                    <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                        <div class="w-full md:w-5/12 md:pr-8 order-1 md:order-1"></div>
-                        <div class="w-8 h-8 rounded-full bg-gold text-white flex items-center justify-center text-xs font-bold z-10 shadow-md order-2 md:order-2">2</div>
-                        <div class="w-full md:w-5/12 md:pl-8 text-center md:text-left mt-4 md:mt-0 order-3 md:order-3">
-                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">December 2023</span>
-                            <h3 class="font-serif-heading text-2xl font-bold text-deepOlive">The Proposal</h3>
-                            <p class="text-stone-600 text-sm mt-2">Under the sunset sky at Fort Kochi beach, with waves crashing nearby, Jim popped the question and Annu said yes!</p>
+                <div class="space-y-8">
+                    <!-- Journey Item 1: Phone Call -->
+                    <div class="journey-card p-6 md:p-8 shadow-md" style="background-image: url('Images/first_meet.jpg');">
+                        <div class="journey-content max-w-lg">
+                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">March 14, 2021</span>
+                            <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive mt-1">First Phone Call</h3>
+                            <p class="text-stone-700 text-sm mt-2">Our very first phone call that sparked hours of endless conversation and connected our hearts.</p>
                         </div>
                     </div>
 
-                    <!-- Story Item 3 -->
-                    <div class="relative flex flex-col md:flex-row items-center justify-between group">
-                        <div class="w-full md:w-5/12 md:pr-8 text-center md:text-right mb-4 md:mb-0">
-                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">November 2026</span>
-                            <h3 class="font-serif-heading text-2xl font-bold text-deepOlive">Tying The Knot</h3>
-                            <p class="text-stone-600 text-sm mt-2">Beginning our next chapter together surrounded by all our favorite family, friends, and loved ones!</p>
+                    <!-- Journey Item 2: First Meet -->
+                    <div class="journey-card p-6 md:p-8 shadow-md" style="background-image: url('Images/second_meet.jpg');">
+                        <div class="journey-content max-w-lg ml-auto text-right">
+                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">May 2021</span>
+                            <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive mt-1">First Meet & Confession</h3>
+                            <p class="text-stone-700 text-sm mt-2">The unforgettable first time we met in person, where we expressed our true feelings for each other.</p>
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-gold text-white flex items-center justify-center text-xs font-bold z-10 shadow-md">3</div>
-                        <div class="w-full md:w-5/12 md:pl-8"></div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Interactive Gallery -->
-        <section id="gallery" class="py-20 px-4 max-w-5xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-xs uppercase tracking-[0.25em] text-gold-dark font-medium">Captured Moments</span>
-                <h2 class="font-serif-heading text-4xl font-bold text-deepOlive mt-1">Photo Gallery</h2>
-                <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
-            </div>
+                    <!-- Journey Item 3: Fixation -->
+                    <div class="journey-card p-6 md:p-8 shadow-md" style="background-image: url('Images/kayak.jpg');">
+                        <div class="journey-content max-w-lg">
+                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">August 2021</span>
+                            <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive mt-1">Our Fixation</h3>
+                            <p class="text-stone-700 text-sm mt-2">Family blessings and our official fixation, bringing our two worlds closer together.</p>
+                        </div>
+                    </div>
 
-            <!-- Gallery Grid with placeholders -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div class="overflow-hidden rounded-2xl glass-card shadow-sm group cursor-pointer" onclick="openImageModal('https://placehold.co/800x1000/2D3A2F/D4AF37?text=Jim+%26+Annu+1')">
-                    <img src="https://placehold.co/600x800/2D3A2F/D4AF37?text=Jim+%26+Annu" alt="Couple Moment 1" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <div class="overflow-hidden rounded-2xl glass-card shadow-sm group cursor-pointer" onclick="openImageModal('https://placehold.co/800x1000/F4EAE6/2D3A2F?text=Engagement+Day')">
-                    <img src="https://placehold.co/600x800/F4EAE6/2D3A2F?text=Engagement+Day" alt="Couple Moment 2" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <div class="overflow-hidden rounded-2xl glass-card shadow-sm group cursor-pointer" onclick="openImageModal('https://placehold.co/800x1000/2D3A2F/F3E5AB?text=Beach+Sunset')">
-                    <img src="https://placehold.co/600x800/2D3A2F/F3E5AB?text=Beach+Sunset" alt="Couple Moment 3" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                    <!-- Journey Item 4: Tying The Knot -->
+                    <div class="journey-card p-6 md:p-8 shadow-md" style="background-image: url('Images/mysore_trip.jpg');">
+                        <div class="journey-content max-w-lg ml-auto text-right">
+                            <span class="text-xs font-bold text-gold-dark uppercase tracking-widest">January 2027</span>
+                            <h3 class="font-serif-heading text-2xl md:text-3xl font-bold text-deepOlive mt-1">Tying The Knot</h3>
+                            <p class="text-stone-700 text-sm mt-2">Beginning our forever chapter together in Kallara, Kottayam surrounded by all our loved ones!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -414,7 +430,7 @@
                 </div>
 
                 <div class="text-[11px] text-stone-400 pt-6 border-t border-stone-700">
-                    With Love & Joy &bull; November 2026
+                    With Love & Joy &bull; January 2027 &bull; Kallara & Uzhavoor
                 </div>
             </div>
         </footer>
@@ -432,7 +448,7 @@
                 <div class="text-center mb-6">
                     <span class="text-xs uppercase tracking-widest text-gold-dark font-semibold">Kindly Respond</span>
                     <h3 class="font-serif-heading text-3xl font-bold text-deepOlive mt-1">RSVP Invitation</h3>
-                    <p class="text-xs text-stone-500 mt-1">Please let us know by October 31, 2026</p>
+                    <p class="text-xs text-stone-500 mt-1">Please let us know by December 31, 2026</p>
                 </div>
 
                 <form id="rsvp-form" onsubmit="handleRsvpSubmit(event)" class="space-y-4">
@@ -481,115 +497,30 @@
                 </div>
                 <h4 class="font-serif-heading text-2xl font-bold text-deepOlive">Thank You!</h4>
                 <p id="rsvp-ack-msg" class="text-sm text-stone-600 mt-2 mb-6">Your RSVP has been saved. We look forward to seeing you!</p>
-                <button onclick="closeRsvpModal()" class="px-6 py-2 bg-deepOlive text-white text-xs uppercase tracking-wider rounded-full hover:bg-gold transition">
-                    Close
-                </button>
+                <button onclick="closeRsvpModal()" class="px-6 py-2 bg-deepOlive text-white text-xs uppercase tracking-widest rounded-full">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- LIGHTBOX IMAGE MODAL -->
-    <div id="image-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden" onclick="closeImageModal()">
-        <div class="max-w-3xl w-full">
-            <img id="modal-img" src="" alt="Enlarged photo" class="w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-2xl">
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT CODE LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Target Wedding Date: Nov 22, 2026
-        const weddingDate = new Date("November 22, 2026 10:30:00").getTime();
-
-        // Audio Synth Generator (Web Audio API Ambient Music)
-        let audioCtx = null;
-        let isPlayingAudio = false;
-        let ambientOscillator = null;
-
-        function initAudio() {
-            try {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            } catch(e) {
-                console.log('Web Audio API not supported');
-            }
-        }
-
-        function toggleAudio() {
-            if (!audioCtx) initAudio();
-            
-            if (isPlayingAudio) {
-                stopAmbientMusic();
-            } else {
-                startAmbientMusic();
-            }
-        }
-
-        function startAmbientMusic() {
-            if (!audioCtx) return;
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            // Create gentle ambient chime chord loop using Web Audio API
-            const notes = [261.63, 329.63, 392.00, 523.25]; // C, E, G, C
-            isPlayingAudio = true;
-            document.getElementById('audio-icon').className = "fas fa-volume-up text-gold-dark animate-bounce";
-
-            playChimes(notes);
-        }
-
-        function playChimes(notes) {
-            if (!isPlayingAudio) return;
-            
-            const note = notes[Math.floor(Math.random() * notes.length)];
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(note, audioCtx.currentTime);
-
-            gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.1, audioCtx.currentTime + 0.5);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 3.0);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 3.0);
-
-            setTimeout(() => {
-                if (isPlayingAudio) playChimes(notes);
-            }, 1800);
-        }
-
-        function stopAmbientMusic() {
-            isPlayingAudio = false;
-            document.getElementById('audio-icon').className = "fas fa-music text-gold-dark";
-        }
-
-        // Open Envelope Cover Function
         function openEnvelope() {
             const overlay = document.getElementById('envelope-overlay');
             overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.visibility = 'hidden';
-            }, 1000);
-
-            // Attempt ambient music play
-            initAudio();
-            startAmbientMusic();
+            overlay.style.visibility = 'hidden';
         }
 
-        // Countdown Timer Logic
+        const weddingDate = new Date('January 11, 2027 10:30:00').getTime();
+
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
             if (distance < 0) {
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
                 return;
             }
 
@@ -598,16 +529,71 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // RSVP Modal Handlers
+        // Canvas Petals Effect
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const petals = [];
+        const petalCount = 20;
+
+        for (let i = 0; i < petalCount; i++) {
+            petals.push({
+                x: Math.random() * width,
+                y: Math.random() * height - height,
+                r: Math.random() * 6 + 4,
+                d: Math.random() * petalCount,
+                color: Math.random() > 0.5 ? 'rgba(212, 175, 55, 0.35)' : 'rgba(200, 138, 138, 0.35)',
+                tilt: Math.random() * 10 - 10,
+                tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+                tiltAngle: 0
+            });
+        }
+
+        function drawPetals() {
+            ctx.clearRect(0, 0, width, height);
+            petals.forEach(p => {
+                ctx.beginPath();
+                ctx.lineWidth = p.r / 2;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+                ctx.stroke();
+            });
+            updatePetals();
+        }
+
+        function updatePetals() {
+            petals.forEach(p => {
+                p.tiltAngle += p.tiltAngleIncremental;
+                p.y += (Math.cos(p.d) + 1 + p.r / 4) / 2;
+                p.x += Math.sin(p.tiltAngle);
+                if (p.y > height) {
+                    p.y = -10;
+                    p.x = Math.random() * width;
+                }
+            });
+        }
+        setInterval(drawPetals, 25);
+
+        function scrollToEvents() {
+            document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
+        }
+
         function openRsvpModal() {
             document.getElementById('rsvp-modal').classList.remove('hidden');
         }
@@ -616,124 +602,38 @@
             document.getElementById('rsvp-modal').classList.add('hidden');
         }
 
-        function handleRsvpSubmit(event) {
-            event.preventDefault();
+        function handleRsvpSubmit(e) {
+            e.preventDefault();
             const name = document.getElementById('guest-name').value;
             const attendance = document.getElementById('attendance').value;
-            const count = document.getElementById('guest-count').value;
-            const dietary = document.getElementById('dietary').value;
-            const note = document.getElementById('guest-note').value;
-
-            const rsvpData = { name, attendance, count, dietary, note, date: new Date().toISOString() };
             
-            // Save to localStorage
-            const existing = JSON.parse(localStorage.getItem('wedding_rsvps') || '[]');
-            existing.push(rsvpData);
-            localStorage.setItem('wedding_rsvps', JSON.stringify(existing));
-
-            // Switch to confirmation UI
+            localStorage.setItem('jim_annu_rsvp', JSON.stringify({ name, attendance, time: new Date() }));
+            
             document.getElementById('rsvp-form-container').classList.add('hidden');
             document.getElementById('rsvp-success').classList.remove('hidden');
-            document.getElementById('rsvp-ack-msg').innerText = `Thank you ${name}! We have received your RSVP response (${attendance}).`;
+            document.getElementById('rsvp-ack-msg').innerText = `Thank you ${name}! Your response (${attendance}) has been recorded successfully.`;
         }
 
-        // Add To Calendar (.ics generation & Google Calendar fallback)
         function addToCalendar() {
-            const title = encodeURIComponent("Jim & Annu's Wedding");
-            const details = encodeURIComponent("Join us for the marriage ceremony of Jim and Annu!");
-            const location = encodeURIComponent("Lulu International Convention Centre, Thrissur, Kerala");
-            const startDate = "20261122T050000Z";
-            const endDate = "20261122T120000Z";
-
-            const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
-            window.open(googleCalUrl, '_blank');
+            const title = encodeURIComponent("Jim & Annu's Wedding & Events");
+            const details = encodeURIComponent("Engagement & Mylanchi on Jan 3, Chantham Charthu on Jan 9, and Marriage on Jan 11, 2027.");
+            const location = encodeURIComponent("St. Thomas Church, Kallara, Kottayam, Kerala");
+            const dates = "20270103T050000Z/20270111T120000Z";
+            window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dates}`, '_blank');
         }
 
-        // Share Website Link
         function shareWebsite() {
             if (navigator.share) {
                 navigator.share({
-                    title: "Jim & Annu Wedding Invitation",
-                    text: "You are cordially invited to celebrate the wedding of Jim & Annu!",
+                    title: "Jim & Annu's Wedding Invitation",
+                    text: "You're invited to celebrate Jim & Annu's wedding events in January 2027!",
                     url: window.location.href
-                }).catch(() => {});
+                }).catch(console.log);
             } else {
-                // Fallback clipboard copy
-                const dummy = document.createElement('input');
-                document.body.appendChild(dummy);
-                dummy.value = window.location.href;
-                dummy.select();
-                document.execCommand('copy');
-                document.body.removeChild(dummy);
+                navigator.clipboard.writeText(window.location.href);
                 alert("Invitation link copied to clipboard!");
             }
         }
-
-        // Lightbox Functions
-        function openImageModal(src) {
-            document.getElementById('modal-img').src = src;
-            document.getElementById('image-modal').classList.remove('hidden');
-        }
-
-        function closeImageModal() {
-            document.getElementById('image-modal').classList.add('hidden');
-        }
-
-        function scrollToEvents() {
-            document.getElementById('events').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Floating Petals Animation Layer
-        const canvas = document.getElementById('petal-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        const petals = Array.from({ length: 25 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 8 + 4,
-            speedY: Math.random() * 1 + 0.5,
-            speedX: Math.random() * 0.5 - 0.25,
-            opacity: Math.random() * 0.5 + 0.3,
-            rotation: Math.random() * 360
-        }));
-
-        function animatePetals() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            petals.forEach(p => {
-                p.y += p.speedY;
-                p.x += p.speedX;
-                p.rotation += 0.5;
-
-                if (p.y > canvas.height) {
-                    p.y = -10;
-                    p.x = Math.random() * canvas.width;
-                }
-
-                ctx.save();
-                ctx.translate(p.x, p.y);
-                ctx.rotate((p.rotation * Math.PI) / 180);
-                ctx.fillStyle = `rgba(212, 175, 55, ${p.opacity})`;
-                ctx.beginPath();
-                ctx.ellipse(0, 0, p.size, p.size / 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            });
-
-            requestAnimationFrame(animatePetals);
-        }
-
-        window.onload = function() {
-            animatePetals();
-        };
     </script>
 </body>
 </html>
