@@ -96,15 +96,17 @@
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            min-height: 180px;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
         }
 
         .journey-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(249, 246, 240, 0.85);
-            backdrop-filter: blur(2px);
+            background: rgba(249, 246, 240, 0.45);
+            backdrop-filter: blur(1px);
             z-index: 1;
         }
 
