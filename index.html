@@ -131,16 +131,30 @@
 
     <!-- ENVELOPE / WAX SEAL COVER OVERLAY -->
     <div id="envelope-overlay" class="fixed inset-0 bg-deepOlive/90 backdrop-blur-md flex items-center justify-center p-4">
-        <div id="envelope-box" class="relative w-full max-w-lg bg-champagne rounded-2xl shadow-2xl p-8 border-2 border-gold/40 text-center flex flex-col items-center justify-between min-h-[420px]">
-            <div class="absolute inset-3 border border-gold/30 rounded-xl pointer-events-none"></div>
+        <!-- Envelope Box with Background Image -->
+        <div id="envelope-box" class="relative w-full max-w-lg rounded-2xl shadow-2xl p-8 border-2 border-gold/40 text-center flex flex-col items-center justify-between min-h-[460px] overflow-hidden bg-cover bg-center">
+            
+            <!-- Inline style for background image -->
+            <style>
+                #envelope-box {
+                    background-image: url('Images/first_meet.jpg');
+                }
+            </style>
 
-            <div class="mt-4">
-                <span class="text-xs uppercase tracking-[0.3em] text-gold-dark font-medium">Invitation To The Wedding Of</span>
-                <h1 class="font-script-calligraphy text-5xl md:text-6xl text-deepOlive mt-2">Jim & Annu</h1>
+            <!-- Dark tinted overlay for readability -->
+            <div class="absolute inset-0 bg-deepOlive/75 backdrop-blur-[2px] z-0"></div>
+
+            <!-- Border Frame -->
+            <div class="absolute inset-3 border border-gold/40 rounded-xl pointer-events-none z-10"></div>
+
+            <!-- Content on top of background -->
+            <div class="relative z-10 mt-4">
+                <span class="text-xs uppercase tracking-[0.3em] text-gold-light font-medium">Invitation To The Wedding Of</span>
+                <h1 class="font-script-calligraphy text-5xl md:text-6xl text-champagne mt-2 drop-shadow-md">Jim & Annu</h1>
             </div>
 
-            <div class="my-8 flex flex-col items-center">
-                <button id="unseal-btn" onclick="openEnvelope()" class="wax-seal w-24 h-24 rounded-full flex items-center justify-center cursor-pointer border-2 border-gold/50 relative group">
+            <div class="relative z-10 my-8 flex flex-col items-center">
+                <button id="unseal-btn" onclick="openEnvelope()" class="wax-seal w-24 h-24 rounded-full flex items-center justify-center cursor-pointer border-2 border-gold/50 relative group shadow-2xl">
                     <div class="text-gold-light text-center flex flex-col items-center">
                         <i class="fas fa-heart text-2xl animate-pulse mb-1"></i>
                         <span class="text-[10px] font-bold tracking-widest uppercase">TAP TO<br>OPEN</span>
@@ -148,8 +162,8 @@
                 </button>
             </div>
 
-            <div class="mb-2 text-stone-600 text-xs tracking-widest uppercase">
-                <i class="fas fa-calendar-alt text-gold-dark mr-1"></i> January 11, 2027
+            <div class="relative z-10 mb-2 text-champagne text-xs tracking-widest uppercase drop-shadow">
+                <i class="fas fa-calendar-alt text-gold-light mr-1"></i> January 11, 2027
             </div>
         </div>
     </div>
@@ -178,7 +192,7 @@
         <!-- Hero Section -->
         <section id="hero" class="relative pt-12 pb-20 px-4 text-center flex flex-col items-center justify-center min-h-[85vh]">
             <div class="max-w-3xl mx-auto">
-			
+            
                 <!-- Bible Verse -->
                 <div class="border mx-auto mb-8 p-4 rounded-xl text-stone-700">
                     <p class="text-xs uppercase tracking-widest font-semibold text-gold-dark mb-1">Matthew 19:6</p>
@@ -186,19 +200,19 @@
                 </div>
 
                 <p class="text-xs uppercase tracking-[0.3em] font-semibold text-gold-dark mb-3">
-					Together With Their Families
-				</p>
+                    Together With Their Families
+                </p>
 
-				<!-- Couple Names -->
-				<h1 class="font-serif-heading text-5xl sm:text-7xl md:text-8xl text-deepOlive font-bold leading-none">
-					Jim <span class="font-script-calligraphy text-gold font-normal text-6xl sm:text-8xl md:text-9xl px-1">&</span> Annu
-				</h1>
+                <!-- Couple Names -->
+                <h1 class="font-serif-heading text-5xl sm:text-7xl md:text-8xl text-deepOlive font-bold leading-none">
+                    Jim <span class="font-script-calligraphy text-gold font-normal text-6xl sm:text-8xl md:text-9xl px-1">&</span> Annu
+                </h1>
 
-				<!-- Holy Invitation Line -->
-				<p class="font-serif text-md md:text-xl text-stone-700 mb-6 leading-relaxed">
-					Joyfully request the honor of your presence to witness and celebrate their 
-					<span class="font-semibold text-deepOlive not-italic">Holy Matrimony</span>
-				</p>
+                <!-- Holy Invitation Line -->
+                <p class="font-serif text-md md:text-xl text-stone-700 mb-6 leading-relaxed">
+                    Joyfully request the honor of your presence to witness and celebrate their 
+                    <span class="font-semibold text-deepOlive not-italic">Holy Matrimony</span>
+                </p>
 
                 <!-- Key Date Display Badge -->
                 <div class="inline-flex items-center justify-center space-x-4 border-y-2 border-gold/30 py-3 px-8 mb-10 text-stone-800">
