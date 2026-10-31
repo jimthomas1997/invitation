@@ -44,7 +44,11 @@
             font-family: 'Montserrat', sans-serif;
             background-color: #F9F6F0;
             color: #2D3A2F;
-            overflow-x: hidden;
+            overflow: hidden; /* Lock scrolling until envelope opens */
+        }
+
+        body.unsealed {
+            overflow: auto; /* Re-enable scrolling after open */
         }
 
         .font-serif-heading {
@@ -130,14 +134,14 @@
     <canvas id="petal-canvas"></canvas>
 
     <!-- ENVELOPE / WAX SEAL COVER OVERLAY -->
-    <div id="envelope-overlay" class="fixed inset-0 bg-deepOlive/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div id="envelope-overlay" class="fixed inset-0 bg-deepOlive/95 backdrop-blur-md flex items-center justify-center p-4">
         <!-- Envelope Box with Background Image -->
         <div id="envelope-box" class="relative w-full max-w-lg rounded-2xl shadow-2xl p-8 border-2 border-gold/40 text-center flex flex-col items-center justify-between min-h-[460px] overflow-hidden bg-cover bg-center">
             
             <!-- Inline style for background image -->
             <style>
                 #envelope-box {
-                    background-image: url('Images/childhood.jpeg');
+                    background-image: url('Images/first_meet.jpg');
                 }
             </style>
 
@@ -168,8 +172,8 @@
         </div>
     </div>
 
-    <!-- MAIN INVITATION CONTENT -->
-    <div id="main-content" class="min-h-screen flex flex-col justify-between">
+    <!-- MAIN INVITATION CONTENT (Hidden until unsealed) -->
+    <div id="main-content" class="min-h-screen flex flex-col justify-between opacity-0 pointer-events-none transition-opacity duration-1000">
 
         <!-- Navigation Bar -->
         <header class="sticky top-0 z-40 bg-champagne/90 backdrop-blur-md border-b border-gold/20 px-6 py-4 transition-all">
@@ -446,8 +450,15 @@
     <script>
         function openEnvelope() {
             const overlay = document.getElementById('envelope-overlay');
+            const mainContent = document.getElementById('main-content');
+            
+            // Fade out overlay
             overlay.style.opacity = '0';
             overlay.style.visibility = 'hidden';
+
+            // Reveal and enable main content & scrolling
+            document.body.classList.add('unsealed');
+            mainContent.classList.remove('opacity-0', 'pointer-events-none');
         }
 
         const weddingDate = new Date('January 11, 2027 10:30:00').getTime();
